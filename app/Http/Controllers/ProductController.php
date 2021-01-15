@@ -28,6 +28,10 @@ class ProductController extends Controller
         return $this->ProductService->deleteProduct($id);
     }
 
-
+    //sort by name and by price and filter by category
+    public function SortFilterProducts(Request $request){
+        $data = $request->all();
+        return $this->ProductService->SortFilterProducts($data);
+    }
 
 }

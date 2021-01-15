@@ -23,6 +23,6 @@ Route::get('getProducts','ProductController@getProducts');
 Route::post('AddProduct','ProductController@AddProduct');
 Route::delete('deleteProduct/{id?}','ProductController@deleteProduct');
 
+Route::post('SortFilter','ProductController@SortFilterProducts');
 
 Route::get('getCategories','CategoryController@getCategories');
-

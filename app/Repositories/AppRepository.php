@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
-
 use App\Models\Product;
 
 class AppRepository  
@@ -44,8 +43,42 @@ class AppRepository
         catch(Exception $e){
             return response()->json(['status'=>'error','message'=>$e]);
         }
-
     }
 
+    public function sortfilter($data){
+        $value = $data['value'];
+        $category = $data['category'];
+        
+        if($value == 'name'){
+            if ($category!=0){
+                $products = $this->model->orderBy('name','asc')->where('id_category','like','%'.$category)->get();
+                return \response()->json(['data'=>$products]);
+            }
+            else {
+                $products = $this->model->orderBy('name','asc')->get();
+                return \response()->json(['data'=>$products]);
+            }
+        }
+        else if($value == 'price'){
+            if($category!=0){
+                $products = $this->model->orderBy('price','asc')->where('id_category','like','%'.$category)->get();
+                return \response()->json(['data'=>$products]);
+            }
+            else{
+                $products = $this->model->orderBy('price','asc')->get();
+                return \response()->json(['data'=>$products]);
+            }
+        }
+        else {
+            if($category!=0){
+                $products = $this->model->where('id_category','like','%'.$category)->get();
+                return \response()->json(['data'=>$products]);
+            }
+            else{
+                $products = $this->model->all();
+                return \response()->json(['data'=>$products]);
+            }
+        } 
+    }
 
 }

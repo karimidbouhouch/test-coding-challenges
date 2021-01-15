@@ -21,6 +21,7 @@ class ProductService
 
     //create new product
     public function createProduct(array $data){
+        
         try{  
         // validation rules
         $validator = Validator::make($data,[
@@ -50,8 +51,8 @@ class ProductService
             'image' => $file_name,
             'id_category' => $data['id_category'],
         ];
-
         return $this->ProductRepository->create($products);
+
         }
         catch(Exception $e){
             return response()->json(['status'=>'error','errors'=>$e]);
@@ -62,6 +63,16 @@ class ProductService
     public function deleteProduct($id){
         return $this->ProductRepository->delete($id);
     }
+
+    public function SortFilterProducts(array $data){
+        try{
+            return $this->ProductRepository->sortfilter($data);
+        }
+        catch(Exception $e){
+            return response()->json(['status'=>'error','errors'=>$e]);
+        }
+    }
+
 
 
 }
